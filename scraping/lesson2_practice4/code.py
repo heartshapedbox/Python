@@ -1,5 +1,5 @@
 import os
-os.chdir("D:\Code\Python\Scraping\lesson2_practice4_pages\data")
+os.chdir("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\data")
 import re
 import requests
 import csv
@@ -28,13 +28,13 @@ def get_pages_urls():
         pages_urls[f"Page #{page_number}"]=page_url
         page_number+=1
 
-    with open("D:\Code\Python\Scraping\lesson2_practice4_pages\pages_urls.json", "a", encoding="utf-8") as file:
+    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\pages_urls.json", "a", encoding="utf-8") as file:
         json.dump(pages_urls, file, indent=4, ensure_ascii=False)
 get_pages_urls()
 
 
 def get_cards_urls():
-    with open("D:\Code\Python\Scraping\lesson2_practice4_pages\pages_urls.json", encoding="utf-8") as file:
+    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\pages_urls.json", encoding="utf-8") as file:
         pgs_urls=json.load(file)
 
     html_number=1
@@ -43,9 +43,9 @@ def get_cards_urls():
         request=requests.get(page_url, headers=headers)
         webpage=request.text
 
-        with open(f"D:\Code\Python\Scraping\lesson2_practice4_pages\data\Page_{html_number}.html", "w", encoding="utf-8") as file:
+        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\data\Page_{html_number}.html", "w", encoding="utf-8") as file:
             file.write(webpage)
-        with open(f"D:\Code\Python\Scraping\lesson2_practice4_pages\data\Page_{html_number}.html", encoding="utf-8") as file:
+        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\data\Page_{html_number}.html", encoding="utf-8") as file:
             webpage_text=file.read()
         soup=BeautifulSoup(webpage_text, "lxml")
         look_for_cards_urls=soup.find_all(class_="mediabox mediabox--linked")
@@ -54,7 +54,7 @@ def get_cards_urls():
         for i in look_for_cards_urls:
             card_url="https://99designs.com"+i.a.get("href")
             cards_urls[card_url]=card_number_on_page
-            with open("D:\Code\Python\Scraping\lesson2_practice4_pages\cards_urls.json", "w", encoding="utf-8") as file:
+            with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\cards_urls.json", "w", encoding="utf-8") as file:
                 json.dump(cards_urls, file, indent=4, ensure_ascii=False)
             card_number_on_page+=1
         html_number+=1
@@ -62,9 +62,9 @@ get_cards_urls()
 
 
 def get_cards_data():
-    with open("D:\Code\Python\Scraping\lesson2_practice4_pages\pages_urls.json", encoding="utf-8") as file:
+    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\pages_urls.json", encoding="utf-8") as file:
         pgs_urls=json.load(file)
-    with open("D:\Code\Python\Scraping\lesson2_practice4_pages\cards_urls.json", encoding="utf-8") as file:
+    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice4_pages\cards_urls.json", encoding="utf-8") as file:
         crds_urls=json.load(file)
 
     pages_quantity=int(len(pgs_urls))

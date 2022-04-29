@@ -20,7 +20,7 @@ web_page = request.text
 with open("index.html", "w", encoding="utf-8") as file:
     file.write(web_page)
 
-with open("D:\Code\Python\Scraping\lesson2\index.html", encoding="utf-8") as file:
+with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2\index.html", encoding="utf-8") as file:
     webpage_text = file.read()
 
 soup = BeautifulSoup(webpage_text, "lxml")
@@ -69,10 +69,10 @@ for category_name, category_url in all_categories.items():
     req = requests.get(url=category_url, headers=headers)
     web_page = req.text
 
-    with open(f"D:\Code\Python\Scraping\lesson2\data\{count}_{category_name}.html", "w", encoding="utf-8") as file:
+    with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2\data\{count}_{category_name}.html", "w", encoding="utf-8") as file:
         file.write(web_page)
 
-    with open(f"D:\Code\Python\Scraping\lesson2\data\{count}_{category_name}.html", encoding="utf-8") as file:
+    with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2\data\{count}_{category_name}.html", encoding="utf-8") as file:
         webpage_text = file.read()
 
     soup = BeautifulSoup(webpage_text, "lxml")
@@ -85,7 +85,7 @@ for category_name, category_url in all_categories.items():
     kilojoules_100 = table_head[5].string
 
     # create .csv file and put table header in it
-    with open(f"D:\Code\Python\Scraping\lesson2\data\{count}_{category_name}.csv", "w", encoding="utf-8") as file:
+    with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2\data\{count}_{category_name}.csv", "w", encoding="utf-8") as file:
         writer = csv.writer(file)
         writer.writerow(
             (
@@ -115,7 +115,7 @@ for category_name, category_url in all_categories.items():
     )
 
     # create new .json file
-    with open(f"D:\Code\Python\Scraping\lesson2\data\{count}_{category_name}.json", "w", encoding="utf-8") as file:
+    with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2\data\{count}_{category_name}.json", "w", encoding="utf-8") as file:
         json.dump(category_descripton, file, indent=4, ensure_ascii=False)
 
 
@@ -141,7 +141,7 @@ for category_name, category_url in all_categories.items():
         )
 
         # add product data to .csv file with "a" (append) flag instead of "w"
-        with open(f"D:\Code\Python\Scraping\lesson2\data\{count}_{category_name}.csv", "a", encoding="utf-8") as file:
+        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2\data\{count}_{category_name}.csv", "a", encoding="utf-8") as file:
             writer = csv.writer(file)
             writer.writerow(
                 (
@@ -153,7 +153,7 @@ for category_name, category_url in all_categories.items():
             )
 
     # update .json file
-    with open(f"D:\Code\Python\Scraping\lesson2\data\{count}_{category_name}.json", "a", encoding="utf-8") as file:
+    with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2\data\{count}_{category_name}.json", "a", encoding="utf-8") as file:
         json.dump(product_list, file, indent=4, ensure_ascii=False)
 
 

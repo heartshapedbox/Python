@@ -1,7 +1,7 @@
 
 import os
 # changing CWD
-os.chdir("D:\Code\Python\Scraping\lesson1")
+os.chdir("C:\Users\baben\Documents\GitHub\python\scraping\lesson1")
 import requests
 import re
 

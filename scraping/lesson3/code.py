@@ -1,5 +1,5 @@
 import os
-os.chdir("D:\Code\Python\Scraping\lesson3\data")
+os.chdir("C:\Users\baben\Documents\GitHub\python\scraping\lesson3\data")
 import re
 import requests
 import csv
@@ -17,7 +17,7 @@ url="https://zoon.com.ua/kiev/restaurants/"
 
 def get_all_cards_on_page(url):
     driver=webdriver.Chrome(
-        executable_path="D:\Code\Python\Scraping\lesson3\chromedriver\chromedriver"
+        executable_path="C:\Users\baben\Documents\GitHub\python\scraping\lesson3\chromedriver\chromedriver"
     )
     driver.maximize_window()
 
@@ -26,7 +26,7 @@ def get_all_cards_on_page(url):
         while True:
             find_more_element=driver.find_element_by_class_name("catalog-button-showMore")
             if find_more_element.is_displayed()==False:
-                with open("D:\Code\Python\Scraping\lesson3\index.html", "w", encoding="utf-8") as file:
+                with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson3\index.html", "w", encoding="utf-8") as file:
                     file.write(driver.page_source)
                 break
             else:
@@ -40,7 +40,7 @@ def get_all_cards_on_page(url):
         driver.quit()
 
 def get_cards_urls():
-    with open("D:\Code\Python\Scraping\lesson3\index.html", encoding="utf-8") as file:
+    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson3\index.html", encoding="utf-8") as file:
         webpage_text=file.read()
     soup=BeautifulSoup(webpage_text, "lxml")
     get_card_url=soup.find_all(class_="minicard-item__title")
@@ -51,11 +51,11 @@ def get_cards_urls():
         card_name=i.a.get("href").split("/")[-2].capitalize()
         card_num+=1
         cards_urls[card_name]=card_url
-        with open("D:\Code\Python\Scraping\lesson3\cards_urls.json", "w", encoding="utf-8") as file:
+        with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson3\cards_urls.json", "w", encoding="utf-8") as file:
             json.dump(cards_urls, file, indent=4, ensure_ascii=False)
 
 def get_cards_data():
-    with open("D:\Code\Python\Scraping\lesson3\cards_urls.json", encoding="utf-8") as file:
+    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson3\cards_urls.json", encoding="utf-8") as file:
         card_urls=json.load(file)
 
         total_cards=int(len(card_urls))

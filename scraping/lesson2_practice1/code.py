@@ -1,5 +1,5 @@
 import os
-os.chdir("D:\Code\Python\Scraping\lesson2test\data")
+os.chdir("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice2test\data")
 import re
 import requests
 import json
