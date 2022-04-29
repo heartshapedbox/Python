@@ -9,3 +9,14 @@
 # you took [попытки] attempts».
 
 compnum = 50
+count = 1
+num = int(input("Please, enter a number: "))
+while num != compnum:
+    if num > compnum:
+        print("Your number is higher!")
+        num = int(input("Please, enter another number: "))
+    else:
+        print("Your number is lower!")
+        num = int(input("Please, enter another number: "))
+    count += 1
+print(f"Well done, you took {count} attemp(s)!")
