@@ -1,5 +1,5 @@
 import os
-os.chdir("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice2\data")
+os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\data")
 import re
 import requests
 import csv
@@ -18,9 +18,9 @@ headers={
 request=requests.get(url,headers=headers)
 webpage=request.text
 
-with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice2\index.html", "w", encoding="utf-8") as file:
+with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\index.html", "w", encoding="utf-8") as file:
     file.write(webpage)
-with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice2\index.html", encoding="utf-8") as file:
+with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\index.html", encoding="utf-8") as file:
     webpage_text=file.read()
 
 soup=BeautifulSoup(webpage_text, "lxml")
@@ -49,11 +49,11 @@ for i in sub_categories_list_names_and_links:
             sub_category_name=sub_category_name.replace(i, "_")
     sub_categories_list[(f"{sub_category_name}")]=sub_category_url
 
-with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice2\categories_list.json", "w", encoding="utf-8") as file:
+with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\categories_list.json", "w", encoding="utf-8") as file:
     json.dump(categories_list, file, indent=4, ensure_ascii=False)
-with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice2\sub_categories_list.json", "w", encoding="utf-8") as file:
+with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\sub_categories_list.json", "w", encoding="utf-8") as file:
     json.dump(sub_categories_list, file, indent=4, ensure_ascii=False)
-with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice2\sub_categories_list.json", encoding="utf-8") as file:
+with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\sub_categories_list.json", encoding="utf-8") as file:
     sub_cat_list=json.load(file)
 
 actions=int(len(sub_cat_list))

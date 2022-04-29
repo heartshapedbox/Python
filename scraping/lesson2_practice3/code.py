@@ -1,5 +1,5 @@
 import os
-os.chdir ("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\data")
+os.chdir ("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\data")
 import re
 import requests
 import json
@@ -19,9 +19,9 @@ def get_parent_categories():
     request=requests.get(url, headers=headers)
     webpage=request.text
 
-    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\index.html", "w", encoding="utf-8") as file:
+    with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\index.html", "w", encoding="utf-8") as file:
         file.write(webpage)
-    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\index.html", encoding="utf-8") as file:
+    with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\index.html", encoding="utf-8") as file:
         webpage_text=file.read()
 
     soup=BeautifulSoup(webpage_text, "lxml")
@@ -37,12 +37,12 @@ def get_parent_categories():
                 parent_cat_name=parent_cat_name.replace(x,"_")
         parent_categories[parent_cat_name]=parent_cat_url
 
-    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\parent_categories\parent_categories.json", "w", encoding="utf-8") as file:
+    with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories\\parent_categories.json", "w", encoding="utf-8") as file:
         json.dump(parent_categories, file, indent=4, ensure_ascii=False)
 get_parent_categories()
 
 def get_sub_categories():
-    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\parent_categories\parent_categories.json", encoding="utf-8") as file:
+    with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories\\parent_categories.json", encoding="utf-8") as file:
         par_cat=json.load(file)
 
     count=1
@@ -52,9 +52,9 @@ def get_sub_categories():
             continue
         request=requests.get(url=parent_cat_url, headers=headers)
         webpage=request.text
-        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\parent_categories\{count}_{parent_cat_name}.html", "w", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories]\{count}_{parent_cat_name}.html", "w", encoding="utf-8") as file:
             file.write(webpage)
-        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\parent_categories\{count}_{parent_cat_name}.html", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories\\{count}_{parent_cat_name}.html", encoding="utf-8") as file:
             webpage_text=file.read()
         soup=BeautifulSoup(webpage_text, "lxml")
         sub_cat=soup.find(class_="single-select facet-list scrollable list").find_all("li")
@@ -67,12 +67,12 @@ def get_sub_categories():
                     sub_cat_name=sub_cat_name.replace(x,"_")
             sub_categories[sub_cat_name]=sub_cat_url
         count+=1
-        with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\sub_categories\sub_categories.json", "w", encoding="utf-8") as file:
+        with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\sub_categories.json", "w", encoding="utf-8") as file:
             json.dump(sub_categories, file, indent=4, ensure_ascii=False)
 get_sub_categories()
 
 def get_all_pages_of_sub_categories():
-    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\sub_categories\sub_categories.json", encoding="utf-8") as file:
+    with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\sub_categories.json", encoding="utf-8") as file:
         sb_cat=json.load(file)
 
     sub_categories_pages={}
@@ -80,9 +80,9 @@ def get_all_pages_of_sub_categories():
     for sub_cat_name, sub_cat_url in sb_cat.items():
         request=requests.get(sub_cat_url, headers=headers)
         webpage=request.text
-        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\sub_categories\{sub_cat_page_num}_{sub_cat_name}.html", "w", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\{sub_cat_page_num}_{sub_cat_name}.html", "w", encoding="utf-8") as file:
             file.write(webpage)
-        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\sub_categories\{sub_cat_page_num}_{sub_cat_name}.html", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\{sub_cat_page_num}_{sub_cat_name}.html", encoding="utf-8") as file:
             webpage_text=file.read()
         soup=BeautifulSoup(webpage_text, "lxml")
         for i in range(1,100):
@@ -91,13 +91,13 @@ def get_all_pages_of_sub_categories():
                 page_url=page_url.replace("=1","="+str(i))
                 page_name=f"{sub_cat_name}_{i}"
                 sub_categories_pages[page_name]=page_url
-        with open(f"C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\sub_categories\sub_categories_pages.json", "w", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\sub_categories_pages.json", "w", encoding="utf-8") as file:
             json.dump(sub_categories_pages, file, indent=4, ensure_ascii=False)
         sub_cat_page_num+=1
 get_all_pages_of_sub_categories()
 
 def get_books_data():
-    with open("C:\Users\baben\Documents\GitHub\python\scraping\lesson2_practice3\sub_categories\sub_categories_pages.json", encoding="utf-8") as file:
+    with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\sub_categories_pages.json", encoding="utf-8") as file:
         sb_cat_pages=json.load(file)
 
     total_pages=int(len(sb_cat_pages))
