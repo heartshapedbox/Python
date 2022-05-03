@@ -1,3 +1,6 @@
+# Создайте список с названиями школьных предметов. Спросите у пользователя, какие из этих предметов ему не нравятся. Удалите выбранные предметы из
+# списка и выведите его повторно.
+
 subjectsList = ["Mathematics","Biology","Chemistry","Art","Language","Technology","Physics","Health","Ecology","Astronomy"]
 print(subjectsList)
 
