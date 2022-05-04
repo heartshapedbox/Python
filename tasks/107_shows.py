@@ -4,7 +4,7 @@ for i in shows:
     showsDict[shows.index(i)] = i
 print(showsDict)
 
-prompt = input("\nPlease, enter another show and position in the list using ',': ")
+prompt = input("\nPlease, enter another show and its position in the list using ',': ")
 anotherShow = prompt.split(",")[0]
 anotherShowIndex = prompt.split(",")[1]
 
