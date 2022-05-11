@@ -25,11 +25,12 @@ while confirmed == False:
             confirmed = False
     else:
         mask = ""
-        for i in range(0, len(passcode) - 2):
+        for i in range(1, len(passcode) - 1):
             mask += "*"
 
-        sliced = slice(len(passcode) - 2, len(passcode))
-        hiddenPass = mask + passcode[sliced]
+        sliced1 = slice(0, 1)
+        sliced2 = slice(len(passcode) - 1, len(passcode))
+        hiddenPass = passcode[sliced1] + mask + passcode[sliced2]
 
         print(f"[+] Correct! Thank you! Your passcode is {hiddenPass}")
         confirmed = True
