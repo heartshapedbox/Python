@@ -11,7 +11,7 @@ result = False
 while result == False:
     nums = array ("i", [])
     for i in range(0, 5):
-        num = random.randint(0, 10)
+        num = random.randint(0, 100)
         nums.append(num)
 
     rangeStart = 1
@@ -20,7 +20,7 @@ while result == False:
     for i in range(0, length):
         if nums[i] in nums[rangeStart:length]:
             print(", ".join(str(i) for i in nums))
-            print(f"Number {nums[i]} is repeated {nums.count(nums[i])} times.")
+            print(f"Number {nums[i]} has been repeated {nums.count(nums[i])} times.")
             result = True
             break
         else:
