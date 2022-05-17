@@ -1,4 +1,5 @@
 import os
+os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2")
 import requests
 import json
 import csv
@@ -7,11 +8,13 @@ import random
 from random import randrange
 from time import sleep
 from bs4 import BeautifulSoup
+from progress.bar import Bar
+
 
 url = "https://www.calories.info/"
 headers = {
-"access-control-allow-credentials": "true",
-"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36"
+    "access-control-allow-credentials": "true",
+    "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36"
 }
 
 request = requests.get(url, headers=headers)
@@ -156,12 +159,15 @@ for category_name, category_url in all_categories.items():
     with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2\\data\\{count}_{category_name}.json", "a", encoding="utf-8") as file:
         json.dump(product_list, file, indent=4, ensure_ascii=False)
 
-
-    count = count + 1
-    print(f"Iteration #: {count}. {category_name}")
-    iterations_count = iterations_count - 1
-    if iterations_count == 0:
-        print("Complete.")
-        break
-    print(f"Iterations remain: {iterations_count}")
-    sleep(random.randrange(2, 4))
+        bar = Bar('Processing', max = iterations_count)
+        for i in range(iterations_count):
+            count = count + 1
+            print(f"\nIteration #: {count}. {category_name}")
+            iterations_count = iterations_count - 1
+            bar.next()
+            if iterations_count == 0:
+                print("\nComplete.")
+                break
+            print(f"\nIterations remain: {iterations_count}")
+            sleep(random.randrange(2, 4))
+        bar.finish()
