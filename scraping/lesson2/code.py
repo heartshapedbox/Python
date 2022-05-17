@@ -8,7 +8,13 @@ import random
 from random import randrange
 from time import sleep
 from bs4 import BeautifulSoup
-from progress.bar import Bar
+from progress.bar import (Bar, ChargingBar, FillingSquaresBar,
+                          FillingCirclesBar, IncrementalBar, PixelBar,
+                          ShadyBar)
+from progress.spinner import (Spinner, PieSpinner, MoonSpinner, LineSpinner,
+                              PixelSpinner)
+from progress.counter import Counter, Countdown, Stack, Pie
+from progress.colors import bold
 
 
 url = "https://www.calories.info/"
@@ -159,15 +165,11 @@ for category_name, category_url in all_categories.items():
     with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2\\data\\{count}_{category_name}.json", "a", encoding="utf-8") as file:
         json.dump(product_list, file, indent=4, ensure_ascii=False)
 
-        bar = Bar('Processing', max = iterations_count)
-        for i in range(iterations_count):
-            count = count + 1
-            print(f"\nIteration #: {count}. {category_name}")
-            iterations_count = iterations_count - 1
-            bar.next()
-            if iterations_count == 0:
-                print("\nComplete.")
-                break
-            print(f"\nIterations remain: {iterations_count}")
-            sleep(random.randrange(2, 4))
-        bar.finish()
+    count += 1
+    print(f"Iteration #: {count}. {category_name}")
+    iterations_count -= 1
+    if iterations_count == 0:
+        print("Complete.")
+        break
+    print(f"Iterations remain: {iterations_count}")
+    sleep(random.randrange(2, 4))
