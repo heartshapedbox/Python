@@ -8,7 +8,7 @@ import random
 from random import randrange
 from time import sleep
 from bs4 import BeautifulSoup
-from progress.bar import (Bar, IncrementalBar)
+from progress.bar import (Bar, IncrementalBar, ChargingBar)
 from progress.colors import bold
 
 url="https://www.kobo.com/ww/en/ebooks/categories"
@@ -119,7 +119,7 @@ def get_books_data():
     page_count=1
 
     # add progress bar
-    barPages = IncrementalBar(bold("Progress"), color = "magenta", max = total_pages, suffix = '%(percent)d%% [%(index)d/%(max)d]')
+    barPages = ChargingBar(bold("Progress"), color = "magenta", max = total_pages, suffix = '%(percent)d%% [%(index)d/%(max)d]')
 
     for page_name, page_url in sb_cat_pages.items():
         request=requests.get(url=page_url, headers=headers)
