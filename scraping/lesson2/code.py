@@ -65,6 +65,10 @@ print(f"Total iterations: {iterations_count}")
 # to count categories
 count = 0
 
+#bar progress
+bar = IncrementalBar(bold('Progress'), color = 'green', max = iterations_count, suffix = "%(percent)d%% [%(index)d/%(max)d]")
+
+
 # get data from each category (link)
 for category_name, category_url in all_categories.items():
 
@@ -168,8 +172,13 @@ for category_name, category_url in all_categories.items():
     count += 1
     print(f"Iteration #: {count}. {category_name}")
     iterations_count -= 1
-    if iterations_count == 0:
-        print("Complete.")
+
+    if iterations_count != 0:
+        bar.next()
+        print(f"  Iterations remain: {iterations_count}")
+        sleep(random.randrange(1, 2))
+    else:
+        bar.next()
+        print("  Complete.")
         break
-    print(f"Iterations remain: {iterations_count}")
-    sleep(random.randrange(2, 4))
+        bar.finish()
