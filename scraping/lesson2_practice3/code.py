@@ -1,5 +1,5 @@
 import os
-os.chdir ("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\data")
+os.chdir ("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3")
 import re
 import requests
 import json
@@ -8,6 +8,8 @@ import random
 from random import randrange
 from time import sleep
 from bs4 import BeautifulSoup
+from progress.bar import (Bar, IncrementalBar)
+from progress.colors import bold
 
 url="https://www.kobo.com/ww/en/ebooks/categories"
 headers={
@@ -45,14 +47,18 @@ def get_sub_categories():
     with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories\\parent_categories.json", encoding="utf-8") as file:
         par_cat=json.load(file)
 
-    count=1
-    sub_categories={}
+    count = 1
+    barMainSection = Bar("Progress", fill = "•", max = 11, suffix = "%(percent)d%%")
+
+    sub_categories = {}
+    print("Main sections processing: ")
     for parent_cat_name, parent_cat_url in par_cat.items():
+        barMainSection.next()
         if parent_cat_name=="Periodicals":
             continue
         request=requests.get(url=parent_cat_url, headers=headers)
         webpage=request.text
-        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories]\{count}_{parent_cat_name}.html", "w", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories\{count}_{parent_cat_name}.html", "w", encoding="utf-8") as file:
             file.write(webpage)
         with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\parent_categories\\{count}_{parent_cat_name}.html", encoding="utf-8") as file:
             webpage_text=file.read()
@@ -66,7 +72,9 @@ def get_sub_categories():
                 if x in sub_cat_name:
                     sub_cat_name=sub_cat_name.replace(x,"_")
             sub_categories[sub_cat_name]=sub_cat_url
-        count+=1
+        count += 1
+        barMainSection.finish()
+
         with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\sub_categories.json", "w", encoding="utf-8") as file:
             json.dump(sub_categories, file, indent=4, ensure_ascii=False)
 get_sub_categories()
@@ -75,9 +83,13 @@ def get_all_pages_of_sub_categories():
     with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\sub_categories.json", encoding="utf-8") as file:
         sb_cat=json.load(file)
 
-    sub_categories_pages={}
-    sub_cat_page_num=1
+    sub_categories_pages = {}
+    sub_cat_page_num = 1
+    barSubSectionsPages = Bar("Progress", fill = ">", max = 113, suffix = "%(percent)d%%")
+
+    print("\nSub sections processing: ")
     for sub_cat_name, sub_cat_url in sb_cat.items():
+        barSubSectionsPages.next()
         request=requests.get(sub_cat_url, headers=headers)
         webpage=request.text
         with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\{sub_cat_page_num}_{sub_cat_name}.html", "w", encoding="utf-8") as file:
@@ -93,7 +105,8 @@ def get_all_pages_of_sub_categories():
                 sub_categories_pages[page_name]=page_url
         with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice3\\sub_categories\\sub_categories_pages.json", "w", encoding="utf-8") as file:
             json.dump(sub_categories_pages, file, indent=4, ensure_ascii=False)
-        sub_cat_page_num+=1
+        sub_cat_page_num += 1
+        barSubSectionsPages.finish()
 get_all_pages_of_sub_categories()
 
 def get_books_data():
@@ -104,6 +117,10 @@ def get_books_data():
     print(f"Total pages: {total_pages}\n")
 
     page_count=1
+
+    # add progress bar
+    barPages = IncrementalBar(bold("Progress"), color = "magenta", max = total_pages, suffix = '%(percent)d%% [%(index)d/%(max)d]')
+
     for page_name, page_url in sb_cat_pages.items():
         request=requests.get(url=page_url, headers=headers)
         webpage=request.text
@@ -322,15 +339,19 @@ def get_books_data():
                     )
                 )
 
-        page_count+=1
-        status1=(f"Page #{page_count-1} {page_name}: In process...")
-        status2=("Status: Done.")
+        page_count += 1
+        status1 = (f"Page #{page_count - 1} {page_name}: In process...")
+        status2 = ("Status: Done.")
         print(status1)
 
-        total_pages=total_pages-1
-        if total_pages==0:
-            print("Status: Done. All pages processed!")
+        total_pages -= 1
+        if total_pages != 0:
+            barPages.next()
+            print(f"  {status2} Pages remain: {total_pages}\n")
+            sleep(random.randrange(1, 3))
+        else:
+            barPages.next()
+            print("  Status: Done. All pages processed!")
             break
-        sleep(random.randrange(1, 3))
-        print(f"{status2} Pages remain: {total_pages}\n")
+            barPages.finish()
 get_books_data()
