@@ -1,5 +1,5 @@
 import os
-os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\data")
+os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1")
 import re
 import requests
 import json
@@ -8,6 +8,10 @@ import random
 from random import randrange
 from time import sleep
 from bs4 import BeautifulSoup
+from progress.bar import (Bar, ChargingBar, FillingSquaresBar, FillingCirclesBar, IncrementalBar, PixelBar, ShadyBar)
+from progress.spinner import (Spinner, PieSpinner, MoonSpinner, LineSpinner, PixelSpinner)
+from progress.counter import (Counter, Countdown, Stack, Pie)
+from progress.colors import bold
 
 url="https://www.calories.info/"
 headers={
@@ -41,27 +45,31 @@ for i in product_category_name_and_url:
     product_categories_list[f"{product_category_name}"]=product_category_url
 
 # create .json file with product categories' names and links inside
-with open("product_categories_list.json", "w", encoding="utf-8") as file:
+with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\product_categories_list.json", "w", encoding="utf-8") as file:
     json.dump(product_categories_list, file, indent=4, ensure_ascii=False)
 
 # load .json file for further actions
-with open("product_categories_list.json", encoding="utf-8") as file:
+with open("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\product_categories_list.json", encoding="utf-8") as file:
     prod_cat_list=json.load(file)
 
 
 # add counter
-counter=int(len(prod_cat_list))
+counter = int(len(prod_cat_list))
 print(f"Total iterations: {counter}")
 
-count=0
+count = 0
 # open each category
+
+# add progress bar
+bar = Bar("Progress", fill = ">", max = counter, suffix = "%(percent)d%% [%(index)d/%(max)d]")
+
 for product_category_name, product_category_url in prod_cat_list.items():
     request=requests.get(url=product_category_url, headers=headers)
     web_page=request.text
 
-    with open(f"{count}_{product_category_name}.html", "w", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\data\\{count}_{product_category_name}.html", "w", encoding="utf-8") as file:
         file.write(web_page)
-    with open(f"{count}_{product_category_name}.html", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\data\\{count}_{product_category_name}.html", encoding="utf-8") as file:
         web_page_text=file.read()
     soup=BeautifulSoup(web_page_text, "lxml")
 
@@ -79,7 +87,7 @@ for product_category_name, product_category_url in prod_cat_list.items():
         }
     )
 
-    with open(f"{count}_{product_category_name}.json", "w", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\data\\{count}_{product_category_name}.json", "w", encoding="utf-8") as file:
         json.dump(product_category_data, file, indent=4, ensure_ascii=False)
 
     # get table headers
@@ -92,7 +100,7 @@ for product_category_name, product_category_url in prod_cat_list.items():
 
     # push table header into .csv file
     # create .csv fiel
-    with open(f"{count}_{product_category_name}.csv", "w", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\data\\{count}_{product_category_name}.csv", "w", encoding="utf-8") as file:
         writer=csv.writer(file)
         writer.writerow(
             (
@@ -129,7 +137,7 @@ for product_category_name, product_category_url in prod_cat_list.items():
         product_kilojoules_unit=i.find(class_="kj").string
 
         # updated .csv file with "a" flag
-        with open(f"{count}_{product_category_name}.csv", "a", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\data\\{count}_{product_category_name}.csv", "a", encoding="utf-8") as file:
             writer=csv.writer(file)
             writer.writerow(
                 (
@@ -151,14 +159,18 @@ for product_category_name, product_category_url in prod_cat_list.items():
         )
 
     # updated .json file with "a" flag
-    with open(f"{count}_{product_category_name}.json", "a", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice1\\data\\{count}_{product_category_name}.json", "a", encoding="utf-8") as file:
         json.dump(product_data, file, indent=4, ensure_ascii=False)
 
-    count+=1
+    count += 1
     print(f"Iteration: {count}. {product_category_name}")
-    counter-=1
-    if counter==0:
-        print("Complete!")
+    counter -= 1
+    if counter != 0:
+        bar.next()
+        print(f"  Iterations remain: {counter}")
+        sleep(random.randrange(2, 5))
+    else:
+        bar.next()
+        print("  Complete!")
         break
-    print(f"Iterations remain: {counter}")
-    sleep(random.randrange(2, 5))
+        bar.finish()

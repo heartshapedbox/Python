@@ -1,5 +1,5 @@
 import os
-os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\data")
+os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\")
 import re
 import requests
 import csv
@@ -8,6 +8,9 @@ import random
 from random import randrange
 from time import sleep
 from bs4 import BeautifulSoup
+from progress.bar import (Bar, PixelBar, ShadyBar, ChargingBar, IncrementalBar, FillingCirclesBar, FillingSquaresBar)
+from progress.spinner import (Spinner, PieSpinner, LineSpinner, MoonSpinner, PixelSpinner)
+from progress.colors import bold
 
 url="https://www.hsnstore.eu/"
 headers={
@@ -60,15 +63,18 @@ actions=int(len(sub_cat_list))
 print(f"Total actions: {actions}\n")
 
 count=0
+
+bar = IncrementalBar(bold("Progress"), color = "green", max = actions, suffix = "%(percent)d%% [%(index)d/%(max)d]")
+
 for sub_category_name, sub_category_url in sub_cat_list.items():
     request=requests.get(url=sub_category_url,headers=headers)
     webpage=request.text
 
-    with open(f"{count}_{sub_category_name}.html", "w", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\data\\{count}_{sub_category_name}.html", "w", encoding="utf-8") as file:
         file.write(webpage)
-    with open(f"{count}_{sub_category_name}.html", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\data\\{count}_{sub_category_name}.html", encoding="utf-8") as file:
         webpage_text=file.read()
-    with open(f"{count}_{sub_category_name}.csv", "w", encoding="utf-8") as file:
+    with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\data\\{count}_{sub_category_name}.csv", "w", encoding="utf-8") as file:
         writer=csv.writer(file)
         writer.writerow(
             (
@@ -115,9 +121,9 @@ for sub_category_name, sub_category_url in sub_cat_list.items():
             }
         )
 
-        with open(f"{count}_{sub_category_name}.json", "w", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\data\\{count}_{sub_category_name}.json", "w", encoding="utf-8") as file:
             json.dump(product_data, file, indent=4, ensure_ascii=False)
-        with open(f"{count}_{sub_category_name}.csv", "a", encoding="utf-8") as file:
+        with open(f"C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson2_practice2\\data\\{count}_{sub_category_name}.csv", "a", encoding="utf-8") as file:
             writer=csv.writer(file)
             writer.writerow(
                 (
@@ -130,11 +136,15 @@ for sub_category_name, sub_category_url in sub_cat_list.items():
                 )
             )
 
-    count+=1
+    count += 1
     print(f"Action #:{count}. Category: {sub_category_name}")
-    actions-=1
-    if actions==0:
-        print(f"Status: Complete!")
+    actions -= 1
+    if actions != 0:
+        bar.next()
+        print(f"  Actions remain: {actions}")
+        sleep(random.randrange(2, 5))
+    else:
+        bar.next()
+        print(f"  Status: Complete!")
         break
-    print(f"Actions remain: {actions}")
-    sleep(random.randrange(2, 5))
+        bar.finish()

@@ -8,11 +8,8 @@ import random
 from random import randrange
 from time import sleep
 from bs4 import BeautifulSoup
-from progress.bar import (Bar, ChargingBar, FillingSquaresBar,
-                          FillingCirclesBar, IncrementalBar, PixelBar,
-                          ShadyBar)
-from progress.spinner import (Spinner, PieSpinner, MoonSpinner, LineSpinner,
-                              PixelSpinner)
+from progress.bar import (Bar, ChargingBar, FillingSquaresBar, FillingCirclesBar, IncrementalBar, PixelBar, ShadyBar)
+from progress.spinner import (Spinner, PieSpinner, MoonSpinner, LineSpinner, PixelSpinner)
 from progress.counter import Counter, Countdown, Stack, Pie
 from progress.colors import bold
 
