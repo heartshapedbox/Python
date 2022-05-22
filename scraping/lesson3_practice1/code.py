@@ -1,5 +1,5 @@
 import os
-os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson3_practice1\\data")
+os.chdir("C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson3_practice1")
 import re
 import requests
 import csv
@@ -8,17 +8,20 @@ import json
 import pandas
 import random
 from random import randrange
-from time import sleep
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
+from progress.bar import (Bar, PixelBar, IncrementalBar, ChargingBar)
+from progress.colors import bold
 
 url="https://zoon.com.ua/kiev/beauty/"
 
 def get_all_cards_urls_on_page(url):
-    driver=webdriver.Chrome(
-        executable_path="C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson3_practice1\\chromedriver\\hromedriver"
-    )
+    s=Service('C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson3_practice1\\chromedriver\\chromedriver')
+    driver = webdriver.Chrome(service=s)
     driver.maximize_window()
 
     try:
