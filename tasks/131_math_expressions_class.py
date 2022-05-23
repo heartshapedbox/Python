@@ -4,7 +4,7 @@ class Math:
     def __init__(self, args):
         self.result = 0
         self.args = args
-        print(f'Random list: {self.args}.\n')
+        print(f'Random list: {self.args}\n')
 
     def do(self, action):
         if action == "addition":
@@ -27,7 +27,7 @@ class Math:
             print("Error!")
             self.result = None
 
-        print(f'The result of {action} is: {self.result}.')
+        print(f'The result of {action} is: {self.result}')
         self.result = 0
 
 list = Math([random.randrange(1, 20) for i in range(0, random.randrange(4, 7))])
