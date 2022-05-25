@@ -10,9 +10,9 @@ import random
 from random import randrange
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 from progress.bar import (Bar, PixelBar, IncrementalBar, ChargingBar)
 from progress.colors import bold
@@ -20,8 +20,10 @@ from progress.colors import bold
 url="https://zoon.com.ua/kiev/beauty/"
 
 def get_all_cards_urls_on_page(url):
-    s=Service('C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson3_practice1\\chromedriver\\chromedriver')
-    driver = webdriver.Chrome(service=s)
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    s=Service('C:\\Users\\baben\\Documents\\GitHub\\python\\scraping\\lesson3\\chromedriver\\chromedriver.exe')
+    driver = webdriver.Chrome(options=options, service=s)
     driver.maximize_window()
 
     try:
