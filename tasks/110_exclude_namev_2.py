@@ -3,21 +3,20 @@
 import os
 os.chdir('C:\\Users\\baben\\Documents\\GitHub\\python\\tasks')
 
-file = open('Names.txt', 'r')
-print(file.read())
+with open('Names.txt', 'r') as file:
+    print(file.read())
 file.close()
 
-file = open('Names.txt', 'r')
-file.read()
-name = input("Please, pick a name from the list above: ")
-name = name + "\n"
-
-for i in file:
-    if i != name:
-        file = open('Names2.txt', 'a')
-        file.write(i)
-        file.close()
+with open('Names.txt', 'r') as file:
+    name = input("Please, pick a name from the list above: ")
+    name += "\n"
+    for i in file:
+        if i != name:
+            with open('Names2.txt', 'a') as file:
+                file.write(i)
+            file.close()
 file.close()
 
-file = open('Names2.txt', 'r')
-print(file.read())
+with open('Names2.txt', 'r') as file:
+    print(file.read())
+file.close()
