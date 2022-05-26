@@ -33,4 +33,4 @@ elif option == 3:
     print(file.read())
     file.close()
 else:
-    print("Error. Unsupported option!")
+    print("Error. You entered a number that doesn't match the condition!")
