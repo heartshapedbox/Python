@@ -24,9 +24,11 @@ class Math:
             self.x /= self.y
         return round(self.x, 2)
 
+
 name = input('Please, enter your name: ')
 questions_quantity = random.randrange(2, 6)
 none = 3 * (5 - questions_quantity)
+
 
 header = ['Name','Points']
 start = 1
@@ -35,12 +37,13 @@ for i in range(0, 5):
     header.insert(start + 1, f'Answer {i + 1}')
     header.insert(start + 2, f'Result {i + 1}')
     start += 3
+print(f'{name}, answer to {questions_quantity} math questions, please.')
+
 
 with open('math.csv', 'a', newline = '') as file:
     writer = csv.writer(file)
     writer.writerow(header)
 
-print(f'{name}, answer to {questions_quantity} math questions, please.')
 
 count = 0
 result_list = []
@@ -50,7 +53,6 @@ for i in range(0, questions_quantity):
     random_expression = random.choice(expressions_list)
     nums = Math(random_x, random_y)
     result = nums.do(random_expression)
-
     question = f"\nWhat is the result of {random_x} {random_expression} {random_y}?"
     print(question)
     result_list.append(question)
@@ -76,10 +78,12 @@ for i in range(0, questions_quantity):
     result_list.append(positive)
 print(f'\nYou got {count} points.')
 
+
 result_list.insert(0, name)
 for i in range(0, none):
     result_list.append(None)
 result_list.append(count)
+
 
 with open('math.csv', 'a') as file:
     writer = csv.writer(file)
