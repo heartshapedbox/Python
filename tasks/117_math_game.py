@@ -6,8 +6,27 @@ import csv
 import random
 import os
 os.chdir('C:\\Users\\baben\\Documents\\GitHub\\python\\tasks')
+from datetime import datetime
+
+name = input('Please, enter your name: ')
+questions_quantity = random.randrange(2, 6)
+header = ['Name','Points','Date']
+start = 1
+for i in range(0, 5):
+    header.insert(start, f'Question {i + 1}')
+    header.insert(start + 1, f'Answer {i + 1}')
+    header.insert(start + 2, f'Result {i + 1}')
+    start += 3
+print(f'{name}, answer to {questions_quantity} math questions, please.')
+
+
+with open('math.csv', 'a', newline = '') as file:
+    writer = csv.writer(file)
+    writer.writerow(header)
+
 
 expressions_list = ['+', '-', '*', '/']
+
 class Math:
     def __init__(self, x, y):
         self.x = x
@@ -25,39 +44,19 @@ class Math:
         return round(self.x, 2)
 
 
-name = input('Please, enter your name: ')
-questions_quantity = random.randrange(2, 6)
-none = 3 * (5 - questions_quantity)
-
-
-header = ['Name','Points']
-start = 1
-for i in range(0, 5):
-    header.insert(start, f'Question {i + 1}')
-    header.insert(start + 1, f'Answer {i + 1}')
-    header.insert(start + 2, f'Result {i + 1}')
-    start += 3
-print(f'{name}, answer to {questions_quantity} math questions, please.')
-
-
-with open('math.csv', 'a', newline = '') as file:
-    writer = csv.writer(file)
-    writer.writerow(header)
-
-
 count = 0
-result_list = []
+log_list = []
 for i in range(0, questions_quantity):
     random_x = random.randrange(1, 10)
     random_y = random.randrange(1, 10)
     random_expression = random.choice(expressions_list)
     nums = Math(random_x, random_y)
     result = nums.do(random_expression)
-    question = f"\nWhat is the result of {random_x} {random_expression} {random_y}?"
-    print(question)
-    result_list.append(question)
+    question = f"What is the result of {random_x} {random_expression} {random_y}?"
+    print(f'\n{question}')
+    log_list.append(question)
     answer = input("Your answer is: ")
-    result_list.append(answer)
+    log_list.append(answer)
 
     try:
         answer = int(answer)
@@ -75,16 +74,23 @@ for i in range(0, questions_quantity):
         print(f"[-] Incorrect! The result is: {result}.")
         positive = False
         count += 0
-    result_list.append(positive)
+    log_list.append(positive)
 print(f'\nYou got {count} points.')
 
 
-result_list.insert(0, name)
+log_list.insert(0, name)
+
+none = 3 * (5 - questions_quantity)
 for i in range(0, none):
-    result_list.append(None)
-result_list.append(count)
+    log_list.append(None)
+
+log_list.append(count)
+
+now = datetime.now()
+now_string = now.strftime("%d/%m/%Y %H:%M:%S")
+log_list.append(now)
 
 
 with open('math.csv', 'a') as file:
     writer = csv.writer(file)
-    writer.writerow(result_list)
+    writer.writerow(log_list)
