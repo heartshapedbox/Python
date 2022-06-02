@@ -87,7 +87,7 @@ for i in range(0, none):
 log_list.append(count)
 
 now = datetime.now()
-now_string = now.strftime("%d/%m/%Y %H:%M:%S")
+now_string = now.strftime("%d/%m/%y %H:%M:%S")
 log_list.append(now)
 
 
