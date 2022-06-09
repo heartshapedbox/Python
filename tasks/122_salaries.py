@@ -13,13 +13,16 @@ with open('Salaries.csv','w', newline = '') as file:
     writer = csv.writer(file)
     writer.writerow(header)
 
+
 def show_menu():
     print('\nMenu:\n--------------------\n1. Add to file\n2. View all records\n3. Quit\n--------------------\n')
+
 
 def add_data(data_list):
     with open('Salaries.csv', 'a', newline = '') as file:
         writer = csv.writer(file)
         writer.writerow(data_list)
+
 
 def read_data():
     with open('Salaries.csv', 'r', newline = '') as file:
@@ -27,6 +30,7 @@ def read_data():
         row = list(reader)
         for i in range(1, len(row)):
             print(': '.join(row[i]))
+
 
 def do(option):
     try:
@@ -48,6 +52,7 @@ def do(option):
             print('Error!')
     except ValueError:
         print('Error!')
+
 
 def main():
     condition = True
