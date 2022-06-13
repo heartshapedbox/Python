@@ -16,5 +16,4 @@ btn = Button(master = window, text = 'Generate', command = do)
 btn.pack()
 
 output = Message(master = window, text = ' ')
-
 window.mainloop()
