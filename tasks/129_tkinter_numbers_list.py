@@ -7,8 +7,11 @@ from numpy import number
 
 root = Tk()
 root.title('Numbers')
-root.geometry('300x200')
 root.resizable(False, False)
+x = int(root.winfo_screenwidth() // 2)
+y = int(root.winfo_screenheight() * 0.2)
+root.geometry('300x200+' + str(x) + '+' + str(y))
+
 
 numbersList = []
 
