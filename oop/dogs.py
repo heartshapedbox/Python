@@ -1,5 +1,3 @@
-
-
 class Dog:
     species = 'Canis familiaris'
     
@@ -14,13 +12,13 @@ class Dog:
         return f'{self.name} says {sound} '
 
 
-dog_jeff = Dog('Jeff', 5)
-# print(dog_jeff.description(), dog_jeff.speak('Woof Woof.'))
+jeff = Dog('Jeff', 5)
+# print(jeff.description(), jeff.speak('Woof Woof.'))
 
 
-dog_joy= Dog('Joy', 7)
-# print(dog_joy.description(), dog_joy.speak('Woof Woof.'))
+joy= Dog('Joy', 7)
+# print(joy.description(), joy.speak('Woof Woof.'))
 
 
-print(dog_jeff)
-print(dog_joy)
+print(jeff)
+print(joy)
