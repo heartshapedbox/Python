@@ -1,10 +1,10 @@
 from tkinter import *
 
 root = Tk()
-root.title('Calculator')
+root.title('')
 x = int(root.winfo_screenwidth() // 2)
 y = int(root.winfo_screenheight() * 0.2)
-root.geometry(f'320x50+{x}+{y}')
+root.geometry(f'150x100+{x}+{y}')
 root.resizable(False, False)
 
 
@@ -28,7 +28,7 @@ btn.configure(
     activeforeground = activeforeground
     )
 hover(btn, activebackground, background, activeforeground, foreground)
-btn.pack()
+btn.place(x = 40, y = 25)
 root.mainloop()
 
 
