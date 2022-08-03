@@ -29,7 +29,7 @@ cursor = db.cursor()
 
 tables = ['Authors', 'Books']
 header = ['ID', 'Name', 'PlaceOfBirth', '']
-header2 = ['ID', 'Title', 'Athor', 'DatePublished']
+header2 = ['ID', 'Title', 'Author', 'DatePublished']
 
 
 for i in range(len(tables)):
@@ -51,12 +51,12 @@ db.commit()
 
 authors_list = [('Agatha Christie', 'Torquay'), ('Cecelia Ahern', 'Dublin'), ('J. K. Rowling', 'Bristol'), ('Oscar Wilde', 'Dublin')]
 for i in authors_list:
-    cursor.execute("""INSERT INTO Authors(ID, Name, PlaceOfBirth) VALUES(?,?,?)""", (authors_list.index(i)+1, i[0], i[1]))
+    cursor.execute("""INSERT INTO Authors(Name, PlaceOfBirth) VALUES(?,?)""", (i[0], i[1]))
     db.commit()
 
 
 books_list = [('De Profundis', 'Oscar Wilde', '1905'), ('Harry Potter and the chamber of secrets', 'J. K. Rowling', '1998'), ('Harry Potter and the prisoner of Azkaban', 'J. K. Rowling', '1999'), ('Lyrebird', 'Cecelia Ahern', '2017'), ('Murder on the Orient Express', 'Agatha Christie', '1934'), ('Perfect', 'Cecelia Ahern', '2017'), ('The marble collector', 'Cecelia Ahern', '2016'), ('The murder on the links', 'Agatha Christie', '1923'), ('The picture of Dorian Gray', 'Oscar Wilde', '1890'), ('The secret adversary', 'Agatha Christie', '1921'), ('The seven dials mystery', 'Agatha Christie', '1929'), ('The year I met you', 'Cecelia Ahern', '2014')]
 for i in books_list:
-    cursor.execute("""INSERT INTO Books(ID, Title, Athor, DatePublished) VALUES(?,?,?,?)""", (books_list.index(i)+1, i[0], i[1], i[2]))
+    cursor.execute("""INSERT INTO Books(Title, Author, DatePublished) VALUES(?,?,?)""", (i[0], i[1], i[2]))
     db.commit()
 db.close()
