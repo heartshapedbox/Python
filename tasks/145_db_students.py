@@ -48,8 +48,8 @@ class App():
         self.entry_lbl_grade.grid(row = 1, column = 0, pady = 3)
         
         self.entry_name = customtkinter.CTkEntry(self.entry_frame, border_width = 0, corner_radius = 6)
-        self.entry_name.focus_set()
         self.entry_name.grid(row = 0, column = 1)
+        self.entry_name.after(700, lambda: self.entry_name.focus())
         
         self.entry_grade = customtkinter.CTkEntry(self.entry_frame, border_width = 0, corner_radius = 6)
         self.entry_grade.grid(row = 1, column = 1)
