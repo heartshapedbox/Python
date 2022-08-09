@@ -13,7 +13,7 @@ foreground = '#f0ebf0'
 activebackground = '#f757a4'
 activeforeground = '#363336'
 
-def hover( btn, colorOnHover, colorOnLeave, colorfgOnHover, colorfgOnLeave):
+def hover(self, btn, colorOnHover, colorOnLeave, colorfgOnHover, colorfgOnLeave):
     btn.bind("<Enter>", func = lambda i: btn.config(background = colorOnHover, foreground = colorfgOnHover))
     btn.bind("<Leave>", func = lambda i: btn.config(background = colorOnLeave, foreground = colorfgOnLeave))
     
