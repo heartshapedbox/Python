@@ -1,25 +1,43 @@
-from tkinter import *
 import random
+from tkinter import *
+import customtkinter
+customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme('dark-blue')
 
-window = Tk()
-window.title('Dice Game')
-window.geometry('500x300')
-window['bg'] = '#000000'
+app = customtkinter.CTk()
+app.title('Dice Game')
+x = int(app.winfo_screenwidth() // 2)
+y = int(app.winfo_screenheight() * 0.45)
+x, y = str(x), str(y)
+app.geometry(f'500x300+{x}+{y}')
+app.resizable(0, 0)
 
-list = ['\u2680','\u2681','\u2682','\u2683','\u2684','\u2685']
+dices = ['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685']
 
-lbl = Label(master = window, text = ' ', font = ("Consolas", 150))
+label = customtkinter.CTkLabel(
+    master=app, text="")
+
 
 def roll():
-    lbl['text'] = f'{random.choice(list)}{random.choice(list)}'
-    lbl.pack()
-    lbl['bg'] = '#000000'
-    lbl['fg'] = '#FFFFFF'
+    label.place(relx=0.5, rely=0.35, anchor=CENTER)
+    label.configure(
+        text=f'{random.choice(dices)}{random.choice(dices)}',
+        text_color="#ededed",
+        font=("Consolas", 150)
+    )
 
 
-btn = Button(master = window, font = ("Consolas", 10), text = 'Roll the Dice', command = roll, padx = 10, pady = 5)
-btn.pack()
-btn['bg'] = '#ff4d4d'
-btn['fg'] = '#000000'
+button = customtkinter.CTkButton(
+    master=app, cursor='hand2', text='ROLL', command=roll)
+button.place(relx=0.5, rely=0.75, anchor=CENTER)
+button.configure(
+    font=("Consolas", 18, "bold"),
+    fg_color="#608bd5",
+    text_color="#ededed",
+    hover_color="#3b65ad",
+    corner_radius=6,
+    width=75,
+    height=45
+)
 
-window.mainloop()
+app.mainloop()
